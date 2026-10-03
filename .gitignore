@@ -26,3 +26,6 @@ Thumbs.db
 
 # PyInstaller output (zip carries the exe; too large for git)
 bin/
+
+# Release artifact (uploaded to GitHub Releases, not committed)
+*.zip
