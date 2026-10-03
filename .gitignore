@@ -1,0 +1,25 @@
+# 运行产物（实拍照片/视频）——个人敏感数据，不入库
+captured/
+frames/
+*.pre
+_err.log
+*.log
+
+# Python
+__pycache__/
+*.pyc
+.pytools_cache/
+
+# 虚拟环境（OpenCL 版色彩还原用，体积大，不入库）
+ocl_env/
+.venv/
+venv/
+
+# 模型/权重（本包不含）
+*.pt
+*.onnx
+*.pth
+
+# 系统
+Thumbs.db
+.DS_Store

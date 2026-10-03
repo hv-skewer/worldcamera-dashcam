@@ -1,0 +1,35 @@
+==============================================================================
+USB 描述符只读探测
+==============================================================================
+
+CM_Get_Device_Interface_ListW(HUB, PRESENT) rc=0 -> 5 个 hub
+
+  hub: \\?\USB#ROOT_HUB30#5&28d9fef6&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8}
+  hub: \\?\USB#ROOT_HUB30#5&6076468&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8}
+  hub: \\?\USB#ROOT_HUB30#5&25a3a17&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8}
+  hub: \\?\USB#ROOT_HUB30#5&1d3afc85&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8}
+  hub: \\?\USB#ROOT_HUB30#5&b00d416&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8}
+
+== 打开成功: \\?\USB#ROOT_HUB30#5&28d9fef6&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8}
+== 打开成功: \\?\USB#ROOT_HUB30#5&6076468&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8}
+== 打开成功: \\?\USB#ROOT_HUB30#5&25a3a17&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8}
+
+  **********************************************************************
+  找到目标设备！端口 = 1
+  bLength=18 bDescriptorType=0x01 bcdUSB=0x0200
+  bDeviceClass=0x00  bDeviceSubClass=0x00  bDeviceProtocol=0x00
+  idVendor=0x1B3F idProduct=0x8301 bcdDevice=0x0100
+  iManufacturer=1 iProduct=2 iSerialNumber=0
+  >>> bNumConfigurations = 1  <<<
+      iManufacturer  = 'worldcm USB Mass Storage Device'
+      iProduct       = 'WORLDCAMERA-MSDC'
+      iSerial        = (未提供)
+
+  --- 配置 0 ---
+    wTotalLength=32  bNumInterfaces=1  bConfigurationValue=1  bMaxPower=50*2mA
+    [接口 0 alt=0] class=0x08 sub=0x06 proto=0x50 端点=2
+       端点 0x81  Bulk       maxpkt=512 interval=0
+       端点 0x02  Bulk       maxpkt=512 interval=0
+  **********************************************************************
+== 打开成功: \\?\USB#ROOT_HUB30#5&1d3afc85&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8}
+== 打开成功: \\?\USB#ROOT_HUB30#5&b00d416&0&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8}

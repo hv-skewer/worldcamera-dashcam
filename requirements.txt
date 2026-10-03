@@ -1,0 +1,10 @@
+# 核心功能（探测 / 直播 / 拍照 / 录视频）零第三方依赖，以下仅用于可选功能：
+#   --crop 裁底部 OSD        → pillow
+#   --chroma 色彩还原        → pillow + numpy
+#   多帧平均合成             → numpy
+#
+# GPU 加速色彩还原（可选，需 NVIDIA/AMD GPU）另需 pyopencl：
+#   pip install pyopencl
+#   详见 docs/chroma_restore_opencl_README.md
+pillow>=9.0
+numpy>=1.21
