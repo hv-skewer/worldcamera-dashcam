@@ -1,13 +1,6 @@
 # WORLDCAMERA-MSDC 行车记录仪 Windows 取流工具（XCDVR PC 移植）
 
-把一台 `WORLDCAMERA-MSDC`（VID:1B3F）行车记录仪接成 U 盘之后，**不用装驱动、
-不用管理员权限、零第三方依赖**，直接在 Windows 上：
-
-- 实时看画面（浏览器 MJPEG 直播页）
-- 拍照（多帧逐像素平均合成，降噪）
-- 录视频（MJPEG 封装 MP4，手写 ftyp/moov/mdat，零依赖）
-- 离线色彩还原（锁 L\* + M2 色度矩阵 + 通道截断 + 8×8 Bayer 抖动，
-  numpy CPU 版 ~1.5s/帧，OpenCL GPU 版 ~15ms/帧）
+![cover](docs/cover.png)
 
 ## 来源声明
 
@@ -187,3 +180,4 @@ worldcamera-dashcam/
 ## 许可
 
 MIT（见 [LICENSE](LICENSE)）。设备厂商的固件与协议不在本仓库范围内。
+
