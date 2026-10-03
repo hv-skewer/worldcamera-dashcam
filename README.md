@@ -37,24 +37,42 @@
 ## 系统要求
 
 - Windows 10/11（纯 ctypes 调 `CreateFileW`/`ReadFile`，未测试 Linux/macOS）
-- Python 3.7+
-- 核心功能（探测 / 直播 / 拍照 / 录视频 / 存帧）：**零第三方依赖**
+- 核心功能（探测 / 直播 / 拍照 / 录视频）：
+  - **方案 A（双击即用）**：`bin/live_view/live_view.exe`，已内置 Python + numpy +
+    Pillow + pyopencl，**零安装、零依赖、无需 Python 环境**
+  - **方案 B（源码跑）**：Python 3.7+，纯标准库即可
 - 可选功能（`--crop` 裁 OSD、`--chroma` 色彩还原、多帧平均合成）：
-  `pip install pillow numpy`
-- 可选加速（OpenCL GPU 色彩还原，需 NVIDIA/AMD GPU + pyopencl）：
-  见 `docs/chroma_restore_opencl_README.md`
+  - 方案 A：已内置，无需操作
+  - 方案 B：`pip install pillow numpy`
+- 可选加速（OpenCL GPU 色彩还原，需 NVIDIA/AMD GPU + OpenCL 驱动）：
+  - 方案 A：已内置（exe 自动探测 GPU，无 GPU 时回退 numpy CPU）
+  - 方案 B：`pip install pyopencl`，见 `docs/chroma_restore_opencl_README.md`
 
 ## 三步跑起来
+
+### 方式一：双击 exe（推荐，零安装）
+
+```powershell
+# 直接运行（bin 目录里自带 Python + 全部依赖）
+bin\live_view\live_view.exe --probe     # 自检
+bin\live_view\live_view.exe --serve     # 起网页 → http://127.0.0.1:8081
+```
+
+> exe 是 PyInstaller onedir 产物（`bin\live_view\` 整目录 = 一个程序），
+> 不能只拷 `live_view.exe` 一个文件走，要把 `live_view\` 整个目录一起带。
+> 输出文件落在 `bin\live_view\captured\`（运行时自动创建）。
+
+### 方式二：源码跑（Python 环境）
 
 ```powershell
 # 1. 装可选依赖（核心功能可跳过）
 pip install pillow numpy
 
 # 2. 自检：确认设备在位、帧在变
-python tools/live_view.py --probe
+python tools\live_view.py --probe
 
 # 3. 起网页实时画面
-python tools/live_view.py --serve
+python tools\live_view.py --serve
 #  然后浏览器打开 http://127.0.0.1:8081
 ```
 
@@ -121,7 +139,13 @@ python tools/live_view.py -d H:\elen1 --probe
 worldcamera-dashcam/
 ├── README.md                 本文件
 ├── LICENSE
-├── requirements.txt          pillow + numpy（可选功能用）
+├── requirements.txt          pillow + numpy（源码模式用；exe 已内置）
+├── setup_env.ps1 / .sh       一键装依赖（源码模式用）
+├── bin/
+│   └── live_view/           ★ 开箱即用 exe（PyInstaller onedir，整目录=一个程序）
+│       ├── live_view.exe     双击运行，内置 Python+numpy+Pillow+pyopencl
+│       ├── _internal/        依赖库（别删，exe 靠它运行）
+│       └── captured/         运行时自动创建（拍照/录像输出）
 ├── tools/
 │   ├── live_view.py          主工具（探测/直播/拍照/录像/裁剪/色彩还原入口）
 │   ├── chroma_restore.py     色彩还原模块（numpy CPU，可 import）
@@ -129,13 +153,12 @@ worldcamera-dashcam/
 │   ├── boot_ocl.py           OpenCL 启动入口（patch pytools 缓存目录）
 │   └── usb_desc.py          只读 USB 描述符（排障）
 ├── docs/
-│   ├── 原理与证据.md          技术底账：elen1 槽位结构、证据链、已排除的路
-│   ├── 部署到另一台电脑.md     部署手册：七个坑、故障排查表、性能数据
-│   ├── 常用指令集.md          所有命令速查
+│   ├── 01-原理与证据.md        技术底账：elen1 槽位结构、证据链、已排除的路
+│   ├── 02-部署到另一台电脑.md   部署手册：七个坑、故障排查表、性能数据
+│   ├── 03-常用指令集.md         所有命令速查
 │   └── chroma_restore_opencl_README.md  GPU 版色彩还原说明
-└── captured/               运行时自动创建（不入库）
-    ├── photo/
-    └── video/
+└── packaging/
+    └── build_exe.ps1        重打 exe 用（需 PyInstaller）
 ```
 
 ## 已知坑（照抄会省很多时间）

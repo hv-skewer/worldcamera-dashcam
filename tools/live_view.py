@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 live_view.py — 行车记录仪实时画面（Windows，零驱动改动）
@@ -86,7 +86,12 @@ CHUNK = 512        # 原生层 read(fd, buf, 512)
 #    且缓冲区地址对齐。扇区通常是 512，但也可能是 4096。所以不能写死，必须探测。
 CHUNK_CANDIDATES = (65536, 32768, 16384, 8192, 4096, 2048, 512)
 
-HERE = os.path.dirname(os.path.abspath(__file__))
+if getattr(sys, "frozen", False):
+    # 打包成 exe（PyInstaller onedir）时：__file__ 指向 _internal/，
+    # 输出目录应落在 exe 同级而不是 _internal 里。
+    HERE = os.path.dirname(sys.executable)
+else:
+    HERE = os.path.dirname(os.path.abspath(__file__))
 
 
 # ────────────────────────────────────────────────────────────── 设备定位

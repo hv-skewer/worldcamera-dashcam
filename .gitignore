@@ -23,3 +23,6 @@ venv/
 # 系统
 Thumbs.db
 .DS_Store
+
+# PyInstaller output (zip carries the exe; too large for git)
+bin/
